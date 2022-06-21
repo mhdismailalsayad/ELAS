@@ -153,7 +153,7 @@ def run(config, insight_url, e3_url):
         file.write(json.dumps(avg_ratings))
 
     ########
-    # upload the e3 courses scrapped data to the database
+    # upload the e3 courses/scrapped data to the database
     uploader.upload_courses()
 
     # 10. remove temp files
