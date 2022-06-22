@@ -6,11 +6,13 @@ import Schedule from "./components/Schedule";
 import Courses from "./components/Courses";
 import { Course } from "./components/Courses";
 
+
 import { studyprogram } from "./data/studyprograms";
 
 const UDEStudyCompass = () => {
   const [showSchedule, setShowSchedule] = useState(false);
   const [studyprograms, setStudyPrograms] = useState(studyprogram);
+ 
 
   useEffect(() => {
     window.scrollTo({
@@ -51,6 +53,7 @@ const UDEStudyCompass = () => {
             {showSchedule ? <Schedule /> : 
             <Grid item container direction="column" spacing={2} >
                   {/* Here should all the components come */}
+                 
                 <Grid item> <Courses/></Grid>
                   
                 <Grid item container direction="column" spacing={2}>
