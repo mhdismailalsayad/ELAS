@@ -137,3 +137,60 @@ def get_lectures_with_root_id():
             "keywords": lecture.keywords
         })
     return jsonify(response)
+
+
+@study_compass.route("/get_lectures_with_rid", methods=["GET"])
+def get_lectures_rID():
+    args = request.args
+    root_id = args.get('id')
+    studyprogram = session.query(StudyProgram).filter(StudyProgram.id==root_id).first()
+    lectures = studyprogram.lectures
+    response = []
+    for lecture in lectures:
+        timetables = lecture.timetables
+        response_timetables = []
+        
+        for timetable in timetables:
+            response_timetables.append({
+                "id": timetable.id,
+                "comment": timetable.comment,
+                "day": timetable.day,
+                "duration": {
+                    "from": timetable.duration_from,
+                    "to": timetable.duration_to
+                },
+                "elearn": timetable.elearn,
+                "rhythm": timetable.rhythm,
+                "room": timetable.room,
+                "status": timetable.status,
+                "time": {
+                    "from": timetable.time_from,
+                    "to": timetable.time_to
+                }
+            })
+        lecture_professors = lecture.professors
+        response_profs = []
+        for profs in lecture_professors:
+            response_profs.append({ "name": profs.name,
+            "url": profs.url})
+       
+        response.append({
+            "id": lecture.id,
+            "url": lecture.url,
+            "name": lecture.name,
+            "subject_type": lecture.subject_type,
+            "sws": lecture.sws,
+            "longtext": lecture.longtext,
+            "shorttext": lecture.shorttext,
+            "language": lecture.language,
+            "description": lecture.description,
+            "timetable": response_timetables,
+            "keywords": lecture.keywords,
+            "persons": response_profs
+        })
+    return jsonify(response)
+
+
+
+
+

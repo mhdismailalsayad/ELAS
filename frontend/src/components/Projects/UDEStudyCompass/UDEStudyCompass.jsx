@@ -3,9 +3,14 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import React, { useEffect, useState } from "react";
 import Schedule from "./components/Schedule";
+import Courses from "./components/Courses";
+import { Course } from "./components/Courses";
+
+import { studyprogram } from "./data/studyprograms";
 
 const UDEStudyCompass = () => {
   const [showSchedule, setShowSchedule] = useState(false);
+  const [studyprograms, setStudyPrograms] = useState(studyprogram);
 
   useEffect(() => {
     window.scrollTo({
@@ -43,8 +48,18 @@ const UDEStudyCompass = () => {
           </Grid>
           <Grid item xs={8}>
             {/* TODO: Your new right side components here */}
-            {showSchedule ? <Schedule /> : <></>}
+            {showSchedule ? <Schedule /> : 
+            <Grid item container direction="column" spacing={2} >
+                  {/* Here should all the components come */}
+                <Grid item> <Courses/></Grid>
+                  
+                <Grid item container direction="column" spacing={2}>
+                    {studyprograms.map(studyprogram => (<Grid item><Course studyprogram={studyprogram}/></Grid>))}
+                  </Grid>
+             
+            </Grid>}
           </Grid>
+         
         </Grid>
       </Grid>
       <Grid item xs={0} md={1} />
