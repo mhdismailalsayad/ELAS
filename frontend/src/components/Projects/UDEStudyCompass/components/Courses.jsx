@@ -12,6 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import SchoolIcon from '@material-ui/icons/School';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 
 
@@ -80,31 +81,32 @@ const Courses = (props) => {
 
 
     return (
-        <><Grid container spacing={1} direction="row" alignItems="stretch" justify="center">
-            <Grid item xs={12} className={classes.mobileHidden}>
+        <>
+            
                 <Paper elevation={6} style={{ padding: 24 }}>
-                    <Grid container spacing={3} direction="row" alignItems="center"  style={{ paddingLeft: 80 }}>
-                        <Grid item xs={1} md={2} className={classes.sorter}>Time</Grid>
-                        <Grid item xs={1} md={1} className={classes.sorter}>Workload</Grid>
-                        <Grid xs={6} md={6} item className={classes.sorter} container spacing={0} direction="row" alignItems="center">
-                            <Grid item><ArrowDownwardIcon /></Grid>
-                            <Grid item>Title</Grid>
+                    <Grid container spacing={3} xs={12} direction="row" alignItems="center"  style={{ paddingLeft: 80 }}>
+                        <Grid xs={1} className={classes.sorter}><Typography>Time</Typography></Grid>
+                        <Grid xs={2} className={classes.sorter}><Typography>Workload</Typography></Grid>
+                        <Grid xs={6}  item className={classes.sorter} container spacing={0} direction="row" alignItems="center">
+                            <Grid item xs={false} md={false}><ArrowDownwardIcon /></Grid>
+                            <Grid item><Typography>Title</Typography></Grid>
                         </Grid>
-                        <Grid item xs={1} md={2} className={classes.sorter}>Course Type</Grid>
+                        <Grid xs={2} item className={classes.sorter}><Typography>Course Type</Typography></Grid>
 
-                        <Grid item xs={1} md={1} className={classes.sorter}>Details</Grid>
+                        <Grid xs={1}  item  className={classes.sorter}><Typography>Detail</Typography></Grid>
 
                     </Grid>
 
                     <Grid></Grid>
                 </Paper>
-            </Grid>
-        </Grid></>
+            
+        </>
     )
 
 }
 
 const Course = (props) => {
+    
 
     //All necessary destructuring
     const {studyprogram} = props;
@@ -155,10 +157,10 @@ const Course = (props) => {
                 {/* This line must later be uncommented and worked on after i have done with other things
                 <div class="select-icon"><IconButton  onClick={() => handleSel(props)}>{selected ? <RemoveIcon/> : <AddIcon/>}</IconButton></div> */}
                 
-                    <Grid container spacing={3} direction="row" alignItems="center"  >
+                    <Grid xs={12} container spacing={3} direction="row" alignItems="center">
                         
-                        <Grid item xs={0} md={0}  className={classes.checkbox}><AddBoxIcon/></Grid>
-                        <Grid item xs={1} md={2} className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])}>
+                        <Grid item xs={false}   className={classes.checkbox}><IconButton><AddBoxIcon style={{color:"orange"}}/></IconButton></Grid>
+                        <Grid item xs={1}  className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])}>
                             {timetable.length == 1 ? <div>{`${day} ${from}-${to}`}</div> :  
                             <Autocomplete
                                 id="combo-box-demo"
@@ -170,11 +172,11 @@ const Course = (props) => {
                             />}
                         </Grid>
                 
-                        <Grid item xs={1} md={1} className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])} onClick={() => setToggle(!isOpen)}>{timeCom.length !== 0 ? timeCom + " hrs." : "-"}</Grid>
-                        <Grid item xs={6} md={6} lg={selected ? 7 : 6} className={classes.emphasis} onClick={() => setToggle(!isOpen)}>{Title}</Grid>         
-                        <Grid item xs={1} md={1} className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])} onClick={() => setToggle(!isOpen)}>{CourseType.split(";").map(e => fType(e)).join(", ")}</Grid>
+                        <Grid item xs={2}  className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])}>{timeCom.length !== 0 ? timeCom + " hrs." : "-"}</Grid>
+                        <Grid item xs={5}  className={classes.emphasis} >{Title}</Grid>         
+                        <Grid item xs={1}   className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])} >{CourseType.split(";").map(e => fType(e)).join(", ")}</Grid>
 
-                        <Grid item xs={1} md={1} className={classes.emphasis}><div class="expand-icon"><Icon aria-label="expand row" onClick={() => setToggle(!isOpen)}>{isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</Icon></div></Grid>
+                        <Grid item xs={1} style={{paddingLeft: 97}}  className={classes.emphasis}><div class="expand-icon"><IconButton aria-label="expand row" onClick={() => setToggle(!isOpen)} style={{transform: isOpen ? "rotate(180deg)" : ""}}> <KeyboardArrowDownIcon style={{padding: 0, margin:0}} /></IconButton></div></Grid>
                     </Grid>
                 
 
@@ -186,7 +188,7 @@ const Course = (props) => {
                             <Grid item><Typography variant="h5">{Title}</Typography></Grid>
                         </Grid>
                         <Grid container spacing={5} direction="row" >
-                            <Grid item xs={5} md={5} xl={5} container direction="column"   spacing={10} >
+                            <Grid item xs={7} container direction="column"   spacing={10} >
                                 <Grid item container direction="column" spacing={1}>
                                     <Grid item><Typography variant="h6" >Professor(s)</Typography></Grid>
                                     {persons.map((result)=> <Grid item container direction="row" spacing={1} alignItems="center">
@@ -205,7 +207,7 @@ const Course = (props) => {
 
                             </Grid>
 
-                            <Grid item xs={7} md={7} xl={7} container direction="column"  justify="center" spacing={6} >
+                            <Grid item xs={5} container direction="column"  justify="center" spacing={6} >
                                 
                                 <Grid item container direction="row" spacing={2}>
                                     <Grid xs={6}  md={6} xl={6}item container direction="column" spacing={1}>
