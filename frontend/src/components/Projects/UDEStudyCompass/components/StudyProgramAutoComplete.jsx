@@ -31,7 +31,7 @@ const StudyProgram = (props) => {
               {...params}
               label="Select your Study Program"
               variant="outlined"
-              color="secondary"
+              color="primary"
             />
           )}
         />

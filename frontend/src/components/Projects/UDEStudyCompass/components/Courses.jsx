@@ -433,7 +433,7 @@ const Course = (props) => {
     rhythm = "",
     duration = "",
     elearn = "",
-  } = tTable;
+  } = tTable || {};
   const { from, to } = time;
   const { from: duFrom, to: duTo } = duration;
 
