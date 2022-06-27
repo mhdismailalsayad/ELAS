@@ -173,7 +173,18 @@ def get_lectures_rID():
         for profs in lecture_professors:
             response_profs.append({ "name": profs.name,
             "url": profs.url})
-       
+        
+
+        lecture_studyprograms = lecture.root_id
+        response_studyPrograms = []
+        for studyprogram in lecture_studyprograms:
+            response_studyPrograms.append({
+            "name": studyprogram.name,
+            "url": studyprogram.url
+             })
+
+
+   
         response.append({
             "id": lecture.id,
             "url": lecture.url,
@@ -186,7 +197,8 @@ def get_lectures_rID():
             "description": lecture.description,
             "timetable": response_timetables,
             "keywords": lecture.keywords,
-            "persons": response_profs
+            "persons": response_profs,
+            "study_programs": response_studyPrograms
         })
     return jsonify(response)
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   Grid,
   Paper,
@@ -54,7 +55,7 @@ const muiStyles = makeStyles((theme) => ({
   },
   avatarName: {
     cursor: "pointer",
-    //backgroundColor: theme.palette.primary.main,
+    backgroundColor: "#" + Math.floor(Math.random() * 16777215).toString(16),
     color: theme.palette.common.white,
     marginLeft: theme.spacing(3),
   },
@@ -337,10 +338,12 @@ const fInitials = (e) => {
 
 const Courses = (props) => {
   const classes = muiStyles;
+  const search = useLocation().search;
+  const id = new URLSearchParams(search).get("id");
 
   return (
     <>
-      <Paper elevation={6} style={{ padding: 24 }}>
+      <Paper elevation={3} style={{ padding: 24 }}>
         <Grid
           container
           spacing={3}
@@ -401,7 +404,7 @@ const Course = (props) => {
     persons,
 
     timetable,
-    studyprograms,
+    study_programs,
   } = studyprogram;
 
   let profs;
@@ -411,18 +414,31 @@ const Course = (props) => {
   const { name: Professors } = profs;
 
   let tTable;
-  if (timetable.length !== 0 && timetable !== null && timetable !== undefined) {
-    timetable.map((result) => {
-      tTable = result;
-    });
-  }
+  timetable.map((result) => {
+    tTable = result;
+  });
 
-  const { day, time, rhythm, duration, room, status, elearn } = tTable;
+  //   let day, time, rhythm, duration, elearn;
+  //   timetable.length > 0 ? timetable.map((result) => {
+  //       day=result.day;
+  //       time=result.time;
+  //       rhythm=result.rhythm;
+  //       duration=result.duration;
+  //       elearn=result.elearn
+  //     }):  day, time, rhythm, duration, elearn = "",
+
+  const {
+    day = "",
+    time = "",
+    rhythm = "",
+    duration = "",
+    elearn = "",
+  } = tTable;
   const { from, to } = time;
   const { from: duFrom, to: duTo } = duration;
 
   const [isOpen, setToggle] = useState(false);
-  const [hex, setHex] = useState("#ffffff");
+  const [hex, setHex] = useState();
   const randoxmizedHex = () => {
     const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
     //setHex(randomColor);
@@ -667,7 +683,11 @@ const Course = (props) => {
                 <Grid item>
                   <Typography variant="h6">Assigned Study Program</Typography>
                 </Grid>
-                <Grid item>#####ToDo####</Grid>
+                <Grid item>
+                  {study_programs.map((studyprogram) => (
+                    <Typography>{studyprogram.name}</Typography>
+                  ))}
+                </Grid>
               </Grid>
 
               <Grid item>

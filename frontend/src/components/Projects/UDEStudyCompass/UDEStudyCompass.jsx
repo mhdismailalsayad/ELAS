@@ -6,13 +6,41 @@ import Schedule from "./components/Schedule";
 import Courses from "./components/Courses";
 import { Course } from "./components/Courses";
 
+import { useParams } from "react-router-dom";
+import Backend from "../../../assets/functions/Backend";
+import axios from "axios";
 
 import { studyprogram } from "./data/studyprograms";
+import StudyProgram from "./components/StudyProgramAutoComplete";
+import StudyCompassDataHandler from "./data/DataHandler";
 
 const UDEStudyCompass = () => {
   const [showSchedule, setShowSchedule] = useState(false);
   const [studyprograms, setStudyPrograms] = useState(studyprogram);
- 
+  const [selectCourse, setSelecCourse] = useState(
+    StudyCompassDataHandler.getStudyPrograms()
+  );
+
+  let { id } = useParams();
+  const [studyProgramId, setStudyProgramId] = useState();
+  const getSelecedCourseId = (studyProgramid) => {
+    setStudyProgramId(studyProgramid);
+  };
+  const [lectures, setLectures] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/studycompass/get_lectures_with_rid?id=${id}`)
+      .then((response) => {
+        const responseData = response.data;
+        setLectures(responseData);
+      });
+  }, []);
+
+  console.log(studyProgramId);
+  // fetch(`http://localhost:5000/studycompass/get_lectures_with_rid?id=${id}`)
+  //   .then((res) => res.json())
+  //   .then((data) => setLectures(data));
 
   useEffect(() => {
     window.scrollTo({
@@ -50,19 +78,36 @@ const UDEStudyCompass = () => {
           </Grid>
           <Grid item xs={8}>
             {/* TODO: Your new right side components here */}
-            {showSchedule ? <Schedule /> : 
-            <Grid item container direction="column" spacing={2} >
-                  {/* Here should all the components come */}
-                 
-                <Grid item> <Courses/></Grid>
-                  
-                <Grid item container direction="column" spacing={2}>
-                    {studyprograms.map(studyprogram => (<Grid item><Course studyprogram={studyprogram}/></Grid>))}
+            {showSchedule ? (
+              <Schedule />
+            ) : (
+              <Grid item container direction="row" spacing={10}>
+                {/* Here should all the components come */}
+                <Grid item xs={12}>
+                  <StudyProgram
+                    selectCourse={selectCourse}
+                    getProgramId={getSelecedCourseId}
+                  />
+                </Grid>
+
+                <Grid item>param : {id}</Grid>
+
+                <Grid item container direction="row" spacing={2}>
+                  <Grid item xs={12}>
+                    <Courses />
                   </Grid>
-             
-            </Grid>}
+
+                  <Grid item container direction="row" spacing={2}>
+                    {studyprograms.map((studyprogram) => (
+                      <Grid item xs={12}>
+                        <Course studyprogram={studyprogram} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Grid>
+              </Grid>
+            )}
           </Grid>
-         
         </Grid>
       </Grid>
       <Grid item xs={0} md={1} />
