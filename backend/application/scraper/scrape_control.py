@@ -78,7 +78,7 @@ def run(config, insight_url, e3_url):
     LsfDataProcessing = ProcessLsfData()
     LsfDataProcessing.run()
 
-    VdbDataProcessing = ProcessVdbData()
+    VdbDataProcessing = ProcessVdbData() 
     VdbDataProcessing.run()
 
     # 3. merge both sets of data

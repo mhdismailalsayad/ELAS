@@ -15,7 +15,7 @@ import Admin from "./Website/Admin/Admin";
 import Registration from "./Website/Registration/Registration";
 import CourseRecommender from "./Projects/CourseRecommender/CourseRecommender";
 import UDEStudyCompass from "./Projects/UDEStudyCompass/UDEStudyCompass";
-import StudyProgram from "./Projects/UDEStudyCompass/components/StudyProgramMenu";
+import DemoMain from "./Projects/UDEStudyCompass/components/StudyProgramMenu";
 
 const useStyles = makeStyles((theme) => ({
   containerHeader: {
@@ -77,11 +77,6 @@ export default function App() {
           <Route
             exact
             path="/ude-studycompass"
-            render={() => <StudyProgram />}
-          />
-          <Route
-            exact
-            path="/ude-studycompass/:id"
             render={() => <UDEStudyCompass classes={classes} />}
           />
 

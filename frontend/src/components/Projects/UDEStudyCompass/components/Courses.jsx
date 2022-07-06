@@ -291,20 +291,36 @@ const fType = (e) => {
   switch (e) {
     case "Vorlesung":
       return "Lecture";
+    case "Übung":
+      return "Exercise";
+    case "Praxisprojekt":
+      return "Lab Project";
+    case "Vorlesung/Übung":
+      return "Lecture/Exercise";
+
     case "Blockseminar":
       return "Block Seminar";
-    case "VL/Ãœbung":
-      return "Lecture/Exercise";
+
     case "Vorlesung/Ãœbung":
       return "Lecture/Exercise";
     case "Ãœbung":
       return "Exercise";
-    case "Praxisprojekt":
-      return "Practice Project";
+    case "Einfuhrung":
+      return "Introductory Event";
+    case "Pratikum":
+      return "Introductory Event";
+    case "Einzelveranstaltung":
+      return "One Time Event";
+    case "Übung/Praktikum":
+      return "Exercise / Lab";
+    case "Tutorium":
+      return "Tutorial";
+
     default:
       return e;
   }
 };
+
 const fryhthm = (e) => {
   switch (e) {
     case "wÃ¶ch.":
@@ -331,15 +347,13 @@ const fday = (e) => {
 };
 
 const fInitials = (e) => {
-  const fullName = e.split(" ");
-  const initials = fullName.shift().charAt(0) + fullName.pop().charAt(0);
+  const initials = e.charAt(0);
   return initials.toUpperCase();
 };
 
 const Courses = (props) => {
   const classes = muiStyles;
   const search = useLocation().search;
-  const id = new URLSearchParams(search).get("id");
 
   return (
     <>
@@ -393,6 +407,7 @@ const Course = (props) => {
   //All necessary destructuring
   const { studyprogram } = props;
   const {
+    id,
     name: Title,
     url: link,
     sws: timeCom,
@@ -405,27 +420,18 @@ const Course = (props) => {
 
     timetable,
     study_programs,
-  } = studyprogram;
+  } = studyprogram || {};
 
   let profs;
   persons.map((result) => {
     profs = result;
   });
-  const { name: Professors } = profs;
+  const { name: Professors } = profs || {};
 
   let tTable;
   timetable.map((result) => {
     tTable = result;
   });
-
-  //   let day, time, rhythm, duration, elearn;
-  //   timetable.length > 0 ? timetable.map((result) => {
-  //       day=result.day;
-  //       time=result.time;
-  //       rhythm=result.rhythm;
-  //       duration=result.duration;
-  //       elearn=result.elearn
-  //     }):  day, time, rhythm, duration, elearn = "",
 
   const {
     day = "",
@@ -435,16 +441,28 @@ const Course = (props) => {
     elearn = "",
   } = tTable || {};
   const { from, to } = time;
-  const { from: duFrom, to: duTo } = duration;
+  const { from: duFrom, to: duTo } = duration || {};
 
   const [isOpen, setToggle] = useState(false);
   const [hex, setHex] = useState();
   const randoxmizedHex = () => {
-    const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
-    //setHex(randomColor);
+    const colors = [
+      "#303F9F",
+      "#453187",
+      "#A52885",
+      "#F4888B",
+      "#F39617",
+      "#2EB2A5",
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
   };
 
   const classes = muiStyles();
+
+  const handleRemoveLecture = (id) => {
+    const newLectureList = studyprogram.filter((item) => item.id !== id);
+    studyprogram = newLectureList;
+  };
 
   return (
     <Paper elevation={3} style={{ padding: "3px 24px", position: "relative" }}>
@@ -468,7 +486,7 @@ const Course = (props) => {
         >
           {timetable.length == 1 ? (
             <div>{`${day} ${from}-${to}`}</div>
-          ) : (
+          ) : timetable.length !== 0 ? (
             <Autocomplete
               id="combo-box-demo"
               options={timetable}
@@ -481,6 +499,8 @@ const Course = (props) => {
                 <TextField {...params} variant="standard" />
               )}
             />
+          ) : (
+            <>{""}</>
           )}
         </Grid>
 
@@ -552,7 +572,7 @@ const Course = (props) => {
                     <Grid item>
                       <Avatar
                         className={classes.avatarName}
-                        style={{ backgroundColor: { hex } }}
+                        style={{ backgroundColor: randoxmizedHex() }}
                       >
                         {fInitials(result.name)}
                       </Avatar>
@@ -571,7 +591,7 @@ const Course = (props) => {
                   {keywords.length > 0 ? (
                     <KeyWordCloud keywords={keywords} />
                   ) : (
-                    "---"
+                    "No Keywords"
                   )}
                 </Grid>
               </Grid>
@@ -587,9 +607,9 @@ const Course = (props) => {
               justify="center"
               spacing={6}
             >
-              <Grid item container direction="row" spacing={2}>
+              <Grid item container direction="row" spacing={10}>
                 <Grid xs={6} item container direction="column" spacing={1}>
-                  <Grid item container direction="row" spacing={2}>
+                  <Grid item container direction="row" spacing={10}>
                     <Grid xs={6} item container direction="column" spacing={1}>
                       <Grid item>
                         <Typography variant="h6">Time</Typography>
@@ -598,15 +618,7 @@ const Course = (props) => {
                         <Typography>{`${from}-${to}`}</Typography>
                       </Grid>
                     </Grid>
-                    <Grid
-                      xs={6}
-                      md={6}
-                      xl={6}
-                      item
-                      container
-                      direction="column"
-                      spacing={1}
-                    >
+                    <Grid xs={6} item container direction="column" spacing={1}>
                       <Grid item>
                         <Typography variant="h6">Rhythm</Typography>
                       </Grid>
@@ -622,27 +634,17 @@ const Course = (props) => {
                         <Typography>{fday(day)}</Typography>
                       </Grid>
                     </Grid>
-                    <Grid xs={1} item container direction="column" spacing={1}>
+                    <Grid xs={1} item container direction="column" spacing={0}>
                       <Grid item>
                         <Typography variant="h6">E-Learn</Typography>
                       </Grid>
                       <Grid item>
-                        <Typography>
-                          {elearn !== "" ? elearn : "  ---"}
-                        </Typography>
+                        <Typography>{elearn !== "" ? elearn : ""}</Typography>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid
-                  xs={4}
-                  md={4}
-                  xl={4}
-                  item
-                  container
-                  direction="column"
-                  spacing={1}
-                >
+                <Grid xs={4} item container direction="column" spacing={1}>
                   <Grid item>
                     <Typography variant="h6">Duration</Typography>
                   </Grid>
@@ -675,7 +677,7 @@ const Course = (props) => {
                   <Typography variant="h6">Description</Typography>
                 </Grid>
                 <Grid item>
-                  {Description !== "" ? Description : "---"}
+                  {Description !== "" ? Description : "No Description"}
                   <Typography></Typography>
                 </Grid>
               </Grid>
@@ -703,6 +705,7 @@ const Course = (props) => {
                 >
                   <a
                     href={link}
+                    target="_blank"
                     style={{ textDecoration: "none", color: "text.primary" }}
                   >
                     TO LSF

@@ -5,42 +5,30 @@ import React, { useEffect, useState } from "react";
 import Schedule from "./components/Schedule";
 import Courses from "./components/Courses";
 import { Course } from "./components/Courses";
+import CourseMenu from "./components/StudyProgramMenu";
+import Backend from "../../../assets/functions/Backend";
+import StudyCompassFilters from "./components/Filters";
 
 import { useParams } from "react-router-dom";
-import Backend from "../../../assets/functions/Backend";
-import axios from "axios";
 
+import axios from "axios";
 import { studyprogram } from "./data/studyprograms";
-import StudyProgram from "./components/StudyProgramAutoComplete";
 import StudyCompassDataHandler from "./data/DataHandler";
 
 const UDEStudyCompass = () => {
-  const [showSchedule, setShowSchedule] = useState(false);
-  const [studyprograms, setStudyPrograms] = useState(studyprogram);
-  const [selectCourse, setSelecCourse] = useState(
-    StudyCompassDataHandler.getStudyPrograms()
-  );
-
-  let { id } = useParams();
-  const [studyProgramId, setStudyProgramId] = useState();
-  const getSelecedCourseId = (studyProgramid) => {
-    setStudyProgramId(studyProgramid);
-  };
+  const [studyPrograms, setStudyprograms] = useState("");
   const [lectures, setLectures] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/studycompass/get_lectures_with_rid?id=${id}`)
-      .then((response) => {
-        const responseData = response.data;
-        setLectures(responseData);
-      });
+    Backend.get("/studycompass/get_studyprograms").then((response) => {
+      setStudyprograms(response.data);
+    });
   }, []);
 
-  console.log(studyProgramId);
-  // fetch(`http://localhost:5000/studycompass/get_lectures_with_rid?id=${id}`)
-  //   .then((res) => res.json())
-  //   .then((data) => setLectures(data));
+  const getLectures = (data) => {
+    setLectures(data);
+  };
+  const [showSchedule, setShowSchedule] = useState(false);
 
   useEffect(() => {
     window.scrollTo({
@@ -59,55 +47,60 @@ const UDEStudyCompass = () => {
           New StudyCompass Homepage
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={4}>
-            {/* TODO: Your new left side components here */}
-            <Grid container justify="space-between">
-              <Typography variant="h6" color="textSecondary">
-                Your semester overview
-              </Typography>
-              <Button
-                color="primary"
-                variant="contained"
-                endIcon={!showSchedule ? <ArrowForwardIcon /> : <></>}
-                startIcon={showSchedule ? <ArrowBackIcon /> : <></>}
-                onClick={() => setShowSchedule(!showSchedule)}
-              >
-                {showSchedule ? `Hide schedule` : `Show schedule`}
-              </Button>
+          {lectures.length === 0 ? (
+            <Grid item xs={12}>
+              <CourseMenu
+                studyPrograms={studyPrograms}
+                getlectures={getLectures}
+              />
             </Grid>
-          </Grid>
-          <Grid item xs={8}>
-            {/* TODO: Your new right side components here */}
-            {showSchedule ? (
-              <Schedule />
-            ) : (
-              <Grid item container direction="row" spacing={10}>
-                {/* Here should all the components come */}
-                <Grid item xs={12}>
-                  <StudyProgram
-                    selectCourse={selectCourse}
-                    getProgramId={getSelecedCourseId}
-                  />
+          ) : (
+            <>
+              <Grid item xs={4}>
+                <Grid item container direction="row" spacing={10}>
+                  <Grid item>Here comes semester overview</Grid>
+                  <Grid item>Here comes selected course</Grid>
                 </Grid>
-
-                <Grid item>param : {id}</Grid>
-
-                <Grid item container direction="row" spacing={2}>
-                  <Grid item xs={12}>
-                    <Courses />
+                {/* TODO: Your new left side components here */}
+                {/*<Grid container justify="space-between">
+                  <Typography variant="h6" color="textSecondary">
+                    Your semester overview
+                  </Typography>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    endIcon={!showSchedule ? <ArrowForwardIcon /> : <></>}
+                    startIcon={showSchedule ? <ArrowBackIcon /> : <></>}
+                    onClick={() => setShowSchedule(!showSchedule)}
+                  >
+                    {showSchedule ? `Hide schedule` : `Show schedule`}
+                  </Button>
+          </Grid> */}
+              </Grid>
+              <Grid item xs={8}>
+                <Grid item container direction="row" spacing={10}>
+                  {/* Here should all the components come */}
+                  <Grid item>
+                    <StudyCompassFilters studyprogram={lectures} />
                   </Grid>
 
                   <Grid item container direction="row" spacing={2}>
-                    {studyprograms.map((studyprogram) => (
-                      <Grid item xs={12}>
-                        <Course studyprogram={studyprogram} />
-                      </Grid>
-                    ))}
+                    <Grid item xs={12}>
+                      <Courses />
+                    </Grid>
+
+                    <Grid item container direction="row" spacing={2}>
+                      {lectures.map((studyprogram) => (
+                        <Grid item xs={12}>
+                          <Course studyprogram={studyprogram} />
+                        </Grid>
+                      ))}
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-            )}
-          </Grid>
+            </>
+          )}
         </Grid>
       </Grid>
       <Grid item xs={0} md={1} />
