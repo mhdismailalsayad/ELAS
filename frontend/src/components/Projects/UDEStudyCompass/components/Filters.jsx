@@ -121,7 +121,9 @@ const StudyCompassFilters = (props) => {
   const Swss = [];
 
   for (let study of studyprogram) {
-    if (!courses.includes(study.subject_type)) courses.push(study.subject_type);
+    if (!courses.includes(study.subject_type)) {
+    }
+    courses.push(study.subject_type);
     if (!Swss.includes(study.sws)) Swss.push(study.sws);
     if (!languages.includes(study.language)) languages.push(study.language);
     for (let tita of study.timetable) {
@@ -226,199 +228,16 @@ const StudyCompassFilters = (props) => {
     <ThemeProvider theme={theme}>
       <React.Fragment>
         {/* Course Type */}
-        <Grid container direction="row" spacing={2}>
-          <Grid item xs={2.5}>
-            <Paper elevation={1} style={{ padding: 0 }}></Paper>
-            <Grid></Grid>
-            <Paper elevation={1} style={{ padding: 0 }}>
-              <FormControl style={{ width: "110px" }}>
-                <InputLabel id="demo-simple-select-label">
-                  Course Type
-                </InputLabel>
-                <Select
-                  disableUnderline
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  multiple
-                  value={coursetype}
-                  label="Course Type"
-                  onChange={handlecourseChange}
-                  renderValue={(selected) => selected.join(", ")}
-                  MenuProps={MenuProps}
-                >
-                  {courses.map((name) => (
-                    <MenuItem key={name} value={name}>
-                      <ListItemText primary={name} />
-                      <Checkbox checked={coursetype.indexOf(name) > -1} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Paper>
-          </Grid>
-          <Grid item xs={2.5}>
-            {/* Language */}
-            <Paper elevation={1} style={{ padding: 0 }}>
-              <FormControl>
-                <InputLabel id="demo-simple-select-label">Language</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  disableUnderline
-                  multiple
-                  value={language}
-                  label="Language"
-                  onChange={handlelangeChange}
-                  renderValue={(selected) => selected.join(", ")}
-                  MenuProps={MenuProps}
-                >
-                  {languages.map((name) => (
-                    <MenuItem key={name} value={name}>
-                      <ListItemText primary={name} />
-                      <Checkbox checked={language.indexOf(name) > -1} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Paper>
-          </Grid>
 
-          <Grid item xs={2}>
-            <Paper elevation={0} style={{ padding: 2 }}>
-              {/* Time */}
-
-              <FormControl>
-                <InputLabel id="demo-simple-select-label">Time</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  multiple
-                  id="demo-simple-select"
-                  value={value}
-                  label="Time"
-                  onChange={handletimeChange}
-                  renderValue={(value) => value.join(" - ")}
-                  MenuProps={MenuProps}
-                >
-                  <MenuItem style={{ height: "100px" }}>
-                    {/* <TextField disabled label="from"  value={value} > </TextField> */}
-
-                    <Typography>
-                      {value[0]}:00 - {value[1]}:00
-                    </Typography>
-
-                    {/* <TextField disabled label="to" defaultValue="20:00" > </TextField> */}
-                  </MenuItem>
-                  <MenuItem style={{ height: "100px" }}>
-                    <Slider
-                      getAriaValueText={valuete}
-                      value={value}
-                      onChange={handleChange}
-                      valueLabelDisplay="auto"
-                      aria-labelledby="discrete-slider-custom"
-                      marks={marksTime}
-                      valueLabelFormat={valuete}
-                      min={8}
-                      max={20}
-                    />
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </Paper>
-          </Grid>
-          <Grid item xs={1}>
-            <Paper elevation={1} style={{ padding: 0 }}>
-              {/* Day */}
-              <FormControl>
-                <InputLabel id="demo-simple-select-label">Day</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  multiple
-                  id="demo-simple-select"
-                  value={dayz}
-                  label="Day"
-                  onChange={handledayzChange}
-                  renderValue={(selected) => selected.join(", ")}
-                  MenuProps={MenuProps}
-                >
-                  {Days.map((name) => (
-                    <MenuItem key={name} value={name}>
-                      <ListItemText primary={name} />
-                      <Checkbox checked={dayz.indexOf(name) > -1} />
-                      {/* change the value ZB Di. -> tuersday */}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Paper>
-          </Grid>
-
-          <Grid item xs={2}>
-            <Paper elevation={0} style={{ padding: 2 }}>
-              {/* SWS */}
-              <FormControl>
-                <InputLabel id="demo-simple-select-label">SWS</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  multiple
-                  value={swz}
-                  label="SWS"
-                  renderValue={(swz) => swz.join(" - ")}
-                  MenuProps={MenuProps}
-                >
-                  <MenuItem style={{ height: "100px" }}>
-                    <Slider
-                      getAriaValueText={valuetext}
-                      value={swz}
-                      onChange={handleswzChange}
-                      valueLabelDisplay="auto"
-                      valueLabelFormat={valuetext}
-                      aria-labelledby="discrete-slider-custom"
-                      min={mm}
-                      max={ll}
-                    />
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </Paper>
-          </Grid>
-          <Grid item xs={2}>
-            <Paper elevation={0} style={{ padding: 2 }}>
-              {/* search */}
-              <TextField
-                id="input-with-icon-textfield"
-                aria-label="center"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="center">
-                      <SearchIcon style={{ color: "#000" }}> </SearchIcon>
-                    </InputAdornment>
-                  ),
-                }}
-                variant="outlined"
-                label="Search for courses"
-              />
-            </Paper>
-          </Grid>
-        </Grid>
-
-        <Grid container direction="row" spacing={2}>
+        <Grid container direction="row" spacing={1}>
           <Grid item>
-            <Paper elevation={1} style={{ padding: 0 }}>
+            <Paper elevation={1}>
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
                 className={classes.box}
                 options={studyprogram}
-                getOptionLabel={(option) => {
-                  const listOfType = [];
-                  for (let opt of option.subject_type) {
-                    if (!listOfType.includes(opt)) {
-                      listOfType.push(opt);
-                      return listOfType;
-                    }
-                  }
-                }}
+                getOptionLabel={(option) => new Set(option.subject_type)}
                 onChange={(event, value) => {
                   //setStudyProgramid(value.id);
                 }}

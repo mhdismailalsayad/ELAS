@@ -33,17 +33,6 @@ import English from "../res/English.png";
 import Turkish from "../res/Turkish.png";
 import Dutch from "../res/Dutch.png";
 
-const c_primary = "#F2994A";
-const c_secondary = "#0057a7";
-const c_success = "#27a360";
-const c_lecEx = "#90EE90";
-const c_lecture = "#B0E0E6";
-const c_seminar = "#FFDAB9";
-const c_block = "#FA8072";
-const c_elearn = "#D8BFD8";
-const c_header = "#000000";
-const c_orange = "#F39617";
-
 //reandom color generation for avater
 
 const muiStyles = makeStyles((theme) => ({
@@ -51,223 +40,6 @@ const muiStyles = makeStyles((theme) => ({
     display: "flex",
     "& > *": {
       margin: theme.spacing(1),
-    },
-  },
-  avatarName: {
-    cursor: "pointer",
-    backgroundColor: "#" + Math.floor(Math.random() * 16777215).toString(16),
-    color: theme.palette.common.white,
-    marginLeft: theme.spacing(3),
-  },
-  paper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "240px",
-    color: theme.palette.text.secondary,
-  },
-  preselect: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "200px",
-  },
-  preSelectInput: {
-    width: 350,
-    [`${theme.breakpoints.down("xs")}`]: {
-      width: 250,
-    },
-  },
-  prePaper: {
-    padding: "40px",
-    borderRadius: "24px",
-    position: "relative",
-  },
-  searchButton: {
-    transform: "translateY(-50%)",
-    padding: "12px 16px",
-  },
-  moreFiltersButton: {
-    textDecoration: "underline",
-    cursor: "pointer",
-    position: "absolute",
-    right: 0,
-    bottom: -40,
-  },
-  initialFilters: {
-    marginTop: "24px",
-  },
-  initialFiltersHidden: {
-    height: "0",
-    width: "0",
-    overflow: "hidden",
-  },
-  h1: {
-    fontSize: "3rem",
-    marginBottom: 0,
-  },
-  reset: {
-    textDecoration: "underline",
-    cursor: "pointer",
-    float: "right",
-    marginTop: -36,
-    marginRight: 18,
-  },
-  fab: {
-    float: "right",
-    marginTop: -8,
-    backgroundColor: c_primary,
-    [`${theme.breakpoints.down("sm")}`]: {
-      marginTop: -24,
-    },
-  },
-  copyButton: {
-    padding: "8px 16px",
-    verticalAlign: "top",
-    fontSize: "1.3em",
-    float: "right",
-    marginTop: 8,
-  },
-  copiedButton: {
-    padding: "8px 16px",
-    verticalAlign: "top",
-    fontSize: "1.3em",
-    float: "right",
-    marginTop: 8,
-    backgroundColor: c_success,
-  },
-  true: {
-    width: "30px",
-    height: "30px",
-    margin: "1px",
-    "background-color": c_primary,
-  },
-  slot: {
-    width: 30,
-    height: 30,
-    margin: 1,
-    backgroundColor: "#E0E0E0",
-  },
-  overlap: {
-    width: 30,
-    height: 30,
-    margin: 1,
-    backgroundColor: c_block,
-  },
-  booked: {
-    width: 30,
-    height: 30,
-    margin: 1,
-    backgroundColor: "#C4C4C4",
-  },
-  selected: {
-    maxWidth: "50%",
-    maxHeight: "30%",
-  },
-  paperSelected: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "240px",
-    color: theme.palette.text.secondary,
-  },
-  table: {
-    maxWidth: "95%",
-    maxHeight: "1200",
-  },
-  row: {
-    "& > *": {
-      borderBottom: "unset",
-    },
-  },
-  paperA: {
-    margin: `${theme.spacing(1)}px auto`,
-    textAlign: "center",
-    height: 270,
-    width: 500,
-  },
-  textcell: {
-    whiteSpace: "nowarp",
-    overflow: "hidden",
-  },
-  sorter: {
-    color: c_header,
-    cursor: "pointer",
-  },
-  link: {
-    textDecoration: "none",
-  },
-  checkbox: {
-    cursor: "pointer",
-    color: c_orange,
-  },
-
-  emphasis: {
-    fontWeight: 500,
-    fontSize: 16,
-    letterSpacing: "1.25px",
-    color: "#000000",
-  },
-  lecExBorder: {
-    borderLeft: "60px solid " + c_lecEx,
-  },
-  lectureBorder: {
-    borderLeft: "60px solid " + c_lecture,
-  },
-  seminarBorder: {
-    borderLeft: "60px solid " + c_seminar,
-  },
-  blockBorder: {
-    borderLeft: "60px solid " + c_block,
-  },
-  elearnBorder: {
-    borderLeft: "60px solid " + c_elearn,
-  },
-  lecEx: {
-    backgroundColor: c_lecEx,
-  },
-  lecture: {
-    backgroundColor: c_lecture,
-  },
-  seminar: {
-    backgroundColor: c_seminar,
-  },
-  block: {
-    backgroundColor: c_block,
-  },
-  elearn: {
-    backgroundColor: c_elearn,
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 215,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(5),
-  },
-
-  mobileHidden: {
-    [`${theme.breakpoints.down("sm")}`]: {
-      display: "none",
-      color: "red",
-    },
-  },
-  mobileFirst: {
-    [`${theme.breakpoints.down("sm")}`]: {
-      order: -1,
-    },
-  },
-  mobileWide: {
-    [`${theme.breakpoints.down("sm")}`]: {
-      width: "100%",
-    },
-  },
-  mdSelectedHidden: {
-    [`${theme.breakpoints.down("md")}`]: {
-      display: "none",
     },
   },
 }));
@@ -369,11 +141,11 @@ const Courses = (props) => {
           <Grid xs={2} className={classes.sorter}>
             <Typography>Time</Typography>
           </Grid>
-          <Grid xs={1} className={classes.sorter}>
+          <Grid xs={1} style={{ marginLeft: "40px" }}>
             <Typography>Workload</Typography>
           </Grid>
           <Grid
-            xs={6}
+            xs={5}
             item
             className={classes.sorter}
             container
@@ -405,11 +177,14 @@ const Courses = (props) => {
 
 const Course = (props) => {
   //All necessary destructuring
-  const { studyprogram } = props;
+
+  const [studyprogram, setStudyProgram] = useState(props.studyprogram);
+
   const {
     id,
     name: Title,
     url: link,
+    isSelected,
     sws: timeCom,
     subject_type: CourseType,
     language: Language,
@@ -421,6 +196,8 @@ const Course = (props) => {
     timetable,
     study_programs,
   } = studyprogram || {};
+
+  const [courseSelected, setCourseSelected] = useState(isSelected);
 
   let profs;
   persons.map((result) => {
@@ -444,7 +221,7 @@ const Course = (props) => {
   const { from: duFrom, to: duTo } = duration || {};
 
   const [isOpen, setToggle] = useState(false);
-  const [hex, setHex] = useState();
+ 
   const randoxmizedHex = () => {
     const colors = [
       "#303F9F",
@@ -459,264 +236,292 @@ const Course = (props) => {
 
   const classes = muiStyles();
 
-  const handleRemoveLecture = (id) => {
-    const newLectureList = studyprogram.filter((item) => item.id !== id);
-    studyprogram = newLectureList;
+  const handleSelectCourse = () => {
+    props.handleAddById(id);
   };
 
   return (
-    <Paper elevation={3} style={{ padding: "3px 24px", position: "relative" }}>
-      {/* This line must later be uncommented and worked on after i have done with other things
+    <>
+      {!isSelected ? (
+        <Paper
+          elevation={3}
+          style={{ padding: "3px 24px", position: "relative" }}
+        >
+          {/* This line must later be uncommented and worked on after i have done with other things
                 <div class="select-icon"><IconButton  onClick={() => handleSel(props)}>{selected ? <RemoveIcon/> : <AddIcon/>}</IconButton></div> */}
 
-      <Grid container spacing={3} direction="row" alignItems="center">
-        <Grid item xs={false} className={classes.checkbox}>
-          <IconButton>
-            <AddBoxIcon style={{ color: "orange" }} />
-          </IconButton>
-        </Grid>
-        <Grid
-          item
-          xs={2}
-          className={classNames(
-            classes.emphasis,
-            classes.mobileHidden,
-            classes[selected ? "mdSelectedHidden" : ""]
-          )}
-        >
-          {timetable.length == 1 ? (
-            <div>{`${day} ${from}-${to}`}</div>
-          ) : timetable.length !== 0 ? (
-            <Autocomplete
-              id="combo-box-demo"
-              options={timetable}
-              defaultValue={() => timetable[0]}
-              getOptionLabel={(option) =>
-                option.day + option.time.from + "-" + option.time.to
-              }
-              style={{ width: 180 }}
-              renderInput={(params) => (
-                <TextField {...params} variant="standard" />
+          <Grid
+            container
+            spacing={3}
+            direction="row"
+            alignItems="center"
+            justify="space-evenly"
+          >
+            <Grid item xs={false} className={classes.checkbox}>
+              <IconButton
+                onClick={() => {
+                  handleSelectCourse();
+                }}
+              >
+                <AddBoxIcon style={{ color: "orange" }} />
+              </IconButton>
+            </Grid>
+            <Grid item xs={2}>
+              {timetable.length == 1 ? (
+                <div>{`${day} ${from}-${to}`}</div>
+              ) : timetable.length !== 0 ? (
+                <Autocomplete
+                  id="combo-box-demo"
+                  options={timetable}
+                  defaultValue={() => timetable[0]}
+                  getOptionLabel={(option) =>
+                    option.day + option.time.from + "-" + option.time.to
+                  }
+                  style={{ width: 150 }}
+                  renderInput={(params) => (
+                    <TextField {...params} variant="standard" />
+                  )}
+                />
+              ) : (
+                <>{""}</>
               )}
-            />
-          ) : (
-            <>{""}</>
-          )}
-        </Grid>
+            </Grid>
 
-        <Grid
-          item
-          xs={1}
-          className={classNames(
-            classes.emphasis,
-            classes.mobileHidden,
-            classes[selected ? "mdSelectedHidden" : ""]
-          )}
-        >
-          {timeCom.length !== 0 ? timeCom + " hrs." : "-"}
-        </Grid>
-        <Grid item xs={5} className={classes.emphasis}>
-          {Title}
-        </Grid>
-        <Grid
-          item
-          xs={2}
-          style={{ paddingLeft: 50 }}
-          className={classNames(
-            classes.emphasis,
-            classes.mobileHidden,
-            classes[selected ? "mdSelectedHidden" : ""]
-          )}
-        >
-          {CourseType.split(";")
-            .map((e) => fType(e))
-            .join(", ")}
-        </Grid>
+            <Grid item xs={1}>
+              <Typography>
+                {timeCom.length !== 0 ? timeCom + " hrs." : "-"}
+              </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography>{Title}</Typography>
+            </Grid>
+            <Grid item xs={2} style={{ marginRight: "3px" }}>
+              <Typography>
+                {CourseType.split(";")
+                  .map((e) => fType(e))
+                  .join(", ")}
+              </Typography>
+            </Grid>
 
-        <Grid item xs={1} className={classes.emphasis}>
-          <div class="expand-icon">
-            <IconButton
-              aria-label="expand row"
-              onClick={() => setToggle(!isOpen)}
-              style={{ transform: isOpen ? "rotate(180deg)" : "" }}
-            >
-              {" "}
-              <KeyboardArrowDownIcon style={{ padding: 0, margin: 0 }} />
-            </IconButton>
-          </div>
-        </Grid>
-      </Grid>
-
-      {/* Collapsible for all additional information */}
-      <Collapse in={isOpen} timeout="auto" unmountOnExit>
-        <Grid item xs={12} style={{ padding: 24 }}>
-          <Grid container spacing={3} direction="row" alignItems="center">
-            <Grid item>
-              <Typography variant="h5">{Title}</Typography>
+            <Grid item xs={1}>
+              <div class="expand-icon">
+                <IconButton
+                  aria-label="expand row"
+                  onClick={() => setToggle(!isOpen)}
+                  style={{ transform: isOpen ? "rotate(180deg)" : "" }}
+                >
+                  {" "}
+                  <KeyboardArrowDownIcon style={{ padding: 0, margin: 0 }} />
+                </IconButton>
+              </div>
             </Grid>
           </Grid>
-          <Grid container spacing={5} direction="row">
-            <Grid item xs={7} container direction="column" spacing={10}>
-              <Grid item container direction="column" spacing={1}>
+
+          {/* Collapsible for all additional information */}
+          <Collapse in={isOpen} timeout="auto" unmountOnExit>
+            <Grid item xs={12} style={{ padding: 24 }}>
+              <Grid container spacing={3} direction="row" alignItems="center">
                 <Grid item>
-                  <Typography variant="h6">Professor(s)</Typography>
+                  <Typography variant="h5">{Title}</Typography>
                 </Grid>
-                {persons.map((result) => (
-                  <Grid
-                    item
-                    container
-                    direction="row"
-                    spacing={1}
-                    alignItems="center"
-                  >
+              </Grid>
+              <Grid container spacing={5} direction="row">
+                <Grid item xs={7} container direction="column" spacing={10}>
+                  <Grid item container direction="column" spacing={1}>
                     <Grid item>
-                      <Avatar
-                        className={classes.avatarName}
-                        style={{ backgroundColor: randoxmizedHex() }}
+                      <Typography variant="h6">Professor(s)</Typography>
+                    </Grid>
+                    {persons.map((result) => (
+                      <Grid
+                        item
+                        container
+                        direction="row"
+                        spacing={1}
+                        alignItems="center"
                       >
-                        {fInitials(result.name)}
-                      </Avatar>
+                        <Grid item>
+                          <Avatar
+                            className={classes.avatarName}
+                            style={{ backgroundColor: randoxmizedHex() }}
+                          >
+                            {fInitials(result.name)}
+                          </Avatar>
+                        </Grid>
+                        <Grid item>
+                          <Typography>{result.name}</Typography>
+                        </Grid>
+                      </Grid>
+                    ))}
+                  </Grid>
+                  <Grid item container direction="column" spacing={1}>
+                    <Grid item>
+                      <Typography variant="h6">Topics</Typography>
                     </Grid>
                     <Grid item>
-                      <Typography>{result.name}</Typography>
+                      {keywords.length > 0 ? (
+                        <KeyWordCloud keywords={keywords} />
+                      ) : (
+                        "No Keywords"
+                      )}
                     </Grid>
                   </Grid>
-                ))}
-              </Grid>
-              <Grid item container direction="column" spacing={1}>
-                <Grid item>
-                  <Typography variant="h6">Topics</Typography>
-                </Grid>
-                <Grid item>
-                  {keywords.length > 0 ? (
-                    <KeyWordCloud keywords={keywords} />
-                  ) : (
-                    "No Keywords"
-                  )}
-                </Grid>
-              </Grid>
 
-              <Grid></Grid>
-            </Grid>
+                  <Grid></Grid>
+                </Grid>
 
-            <Grid
-              item
-              xs={5}
-              container
-              direction="column"
-              justify="center"
-              spacing={6}
-            >
-              <Grid item container direction="row" spacing={10}>
-                <Grid xs={6} item container direction="column" spacing={1}>
+                <Grid
+                  item
+                  xs={5}
+                  container
+                  direction="column"
+                  justify="center"
+                  spacing={6}
+                >
                   <Grid item container direction="row" spacing={10}>
                     <Grid xs={6} item container direction="column" spacing={1}>
-                      <Grid item>
-                        <Typography variant="h6">Time</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography>{`${from}-${to}`}</Typography>
-                      </Grid>
-                    </Grid>
-                    <Grid xs={6} item container direction="column" spacing={1}>
-                      <Grid item>
-                        <Typography variant="h6">Rhythm</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography>{fryhthm(rhythm)}</Typography>
-                      </Grid>
-                    </Grid>
-                    <Grid xs={6} item container direction="column" spacing={1}>
-                      <Grid item>
-                        <Typography variant="h6">Day</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography>{fday(day)}</Typography>
-                      </Grid>
-                    </Grid>
-                    <Grid xs={1} item container direction="column" spacing={0}>
-                      <Grid item>
-                        <Typography variant="h6">E-Learn</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography>{elearn !== "" ? elearn : ""}</Typography>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid xs={4} item container direction="column" spacing={1}>
-                  <Grid item>
-                    <Typography variant="h6">Duration</Typography>
-                  </Grid>
-                  <Grid item container direction="column" spacing={2}>
-                    {duration !== "" ? (
-                      <>
-                        <Grid item container direction="column" spacing={1}>
+                      <Grid item container direction="row" spacing={10}>
+                        <Grid
+                          xs={6}
+                          item
+                          container
+                          direction="column"
+                          spacing={1}
+                        >
                           <Grid item>
-                            <Typography>From</Typography>
+                            <Typography variant="h6">Time</Typography>
                           </Grid>
-                          <Grid item>{duFrom}</Grid>
-                        </Grid>
-                        <Grid item container direction="column" spacing={1}>
                           <Grid item>
-                            <Typography>To</Typography>
+                            <Typography>{`${from}-${to}`}</Typography>
                           </Grid>
-                          <Grid item>{duTo}</Grid>
                         </Grid>
-                      </>
-                    ) : (
-                      <Grid item>
-                        <Typography>{"---"}</Typography>
+                        <Grid
+                          xs={6}
+                          item
+                          container
+                          direction="column"
+                          spacing={1}
+                        >
+                          <Grid item>
+                            <Typography variant="h6">Rhythm</Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography>{fryhthm(rhythm)}</Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          xs={6}
+                          item
+                          container
+                          direction="column"
+                          spacing={1}
+                        >
+                          <Grid item>
+                            <Typography variant="h6">Day</Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography>{fday(day)}</Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid
+                          xs={1}
+                          item
+                          container
+                          direction="column"
+                          spacing={0}
+                        >
+                          <Grid item>
+                            <Typography variant="h6">E-Learn</Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography>
+                              {elearn !== "" ? elearn : ""}
+                            </Typography>
+                          </Grid>
+                        </Grid>
                       </Grid>
-                    )}
+                    </Grid>
+                    <Grid xs={4} item container direction="column" spacing={1}>
+                      <Grid item>
+                        <Typography variant="h6">Duration</Typography>
+                      </Grid>
+                      <Grid item container direction="column" spacing={2}>
+                        {duration !== "" ? (
+                          <>
+                            <Grid item container direction="column" spacing={1}>
+                              <Grid item>
+                                <Typography>From</Typography>
+                              </Grid>
+                              <Grid item>{duFrom}</Grid>
+                            </Grid>
+                            <Grid item container direction="column" spacing={1}>
+                              <Grid item>
+                                <Typography>To</Typography>
+                              </Grid>
+                              <Grid item>{duTo}</Grid>
+                            </Grid>
+                          </>
+                        ) : (
+                          <Grid item>
+                            <Typography>{"---"}</Typography>
+                          </Grid>
+                        )}
+                      </Grid>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Grid>
-              <Grid item container direction="column" spacing={1}>
-                <Grid item>
-                  <Typography variant="h6">Description</Typography>
-                </Grid>
-                <Grid item>
-                  {Description !== "" ? Description : "No Description"}
-                  <Typography></Typography>
-                </Grid>
-              </Grid>
-              <Grid item container direction="column" spacing={1}>
-                <Grid item>
-                  <Typography variant="h6">Assigned Study Program</Typography>
-                </Grid>
-                <Grid item>
-                  {study_programs.map((studyprogram) => (
-                    <Typography>{studyprogram.name}</Typography>
-                  ))}
-                </Grid>
-              </Grid>
+                  <Grid item container direction="column" spacing={1}>
+                    <Grid item>
+                      <Typography variant="h6">Description</Typography>
+                    </Grid>
+                    <Grid item>
+                      {Description !== "" ? Description : "No Description"}
+                      <Typography></Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item container direction="column" spacing={1}>
+                    <Grid item>
+                      <Typography variant="h6">
+                        Assigned Study Program
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      {study_programs.map((studyprogram) => (
+                        <Typography>{studyprogram.name}</Typography>
+                      ))}
+                    </Grid>
+                  </Grid>
 
-              <Grid item>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={classes.button}
-                  startIcon={
-                    <Icon>
-                      <SchoolIcon />
-                    </Icon>
-                  }
-                >
-                  <a
-                    href={link}
-                    target="_blank"
-                    style={{ textDecoration: "none", color: "text.primary" }}
-                  >
-                    TO LSF
-                  </a>
-                </Button>
+                  <Grid item>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      className={classes.button}
+                      startIcon={
+                        <Icon>
+                          <SchoolIcon />
+                        </Icon>
+                      }
+                    >
+                      <a
+                        href={link}
+                        target="_blank"
+                        style={{
+                          textDecoration: "none",
+                          color: "text.primary",
+                        }}
+                      >
+                        TO LSF
+                      </a>
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-      </Collapse>
-    </Paper>
+          </Collapse>
+        </Paper>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 

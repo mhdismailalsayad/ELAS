@@ -244,10 +244,9 @@ const CourseMenu = (props) => {
     props.getlectures(lectures);
   };
 
-  const [studyProgramId, setStudyProgramId] = useState();
-  // const getSelecedCourseId = (studyProgramid) => {
-  //   setStudyProgramId(studyProgramid);
-  // };
+  ////////////////////////////////////Sending only filtered data to filter component
+
+  //////////////////////////////////
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -313,7 +312,7 @@ const CourseMenu = (props) => {
             <Button
               onClick={() => {
                 fetchLectures();
-                //getLectureCourse();
+                getLectureCourse();
               }}
               variant="contained"
               style={{ backgroundColor: "#FB9B0E", color: "white" }}
