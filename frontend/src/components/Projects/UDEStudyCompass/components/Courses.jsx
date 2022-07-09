@@ -221,7 +221,7 @@ const Course = (props) => {
   const { from: duFrom, to: duTo } = duration || {};
 
   const [isOpen, setToggle] = useState(false);
- 
+
   const randoxmizedHex = () => {
     const colors = [
       "#303F9F",
@@ -449,20 +449,22 @@ const Course = (props) => {
                           <>
                             <Grid item container direction="column" spacing={1}>
                               <Grid item>
-                                <Typography>From</Typography>
+                                <Typography variant="h6">From</Typography>
                               </Grid>
-                              <Grid item>{duFrom}</Grid>
+                              <Grid item>
+                                <Typography>{duFrom}</Typography>                                
+                              </Grid>
                             </Grid>
                             <Grid item container direction="column" spacing={1}>
                               <Grid item>
-                                <Typography>To</Typography>
+                                <Typography variant="h6">To</Typography>
                               </Grid>
-                              <Grid item>{duTo}</Grid>
+                              <Grid item><Typography>{duTo}</Typography></Grid>
                             </Grid>
                           </>
                         ) : (
                           <Grid item>
-                            <Typography>{"---"}</Typography>
+                            <Typography>{null}</Typography>
                           </Grid>
                         )}
                       </Grid>
@@ -473,8 +475,8 @@ const Course = (props) => {
                       <Typography variant="h6">Description</Typography>
                     </Grid>
                     <Grid item>
-                      {Description !== "" ? Description : "No Description"}
-                      <Typography></Typography>
+                      
+                      <Typography>{Description !== "" ? Description : "No Description"}</Typography>
                     </Grid>
                   </Grid>
                   <Grid item container direction="column" spacing={1}>

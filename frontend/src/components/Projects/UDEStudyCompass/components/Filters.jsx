@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, fade } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import {
-  Box,
-  createMuiTheme,
-  ThemeProvider,
-  Paper,
-  Grid,
-} from "@material-ui/core";
+import { Box, createMuiTheme, Grid, ThemeProvider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -19,8 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
 import Slider from "@material-ui/core/Slider";
-import { studyprogram } from "../data/studyprograms";
-//import Backend from "../../../../assets/functions/Backend";
+import Backend from "../../../../assets/functions/Backend";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -32,6 +24,45 @@ const theme = createMuiTheme({
   },
 });
 const useStyles = makeStyles((theme) => ({
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto",
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    color: "inherit",
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
+  },
   root: {
     width: "100%",
     fontVariant: "small-caps",
@@ -51,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     alignContent: "center",
     display: "flex",
     justifyContent: "space-around",
-    width: "80%",
+    width: "100%",
     marginTop: "20px",
     justify: "center",
     textAlign: "center",
@@ -97,22 +128,79 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ITEM_HEIGHT = 60;
-const ITEM_PADDING_TOP = 20;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
+const marksTime = [
+  {
+    value: 8,
   },
-};
+  {
+    value: 9,
+  },
+  {
+    value: 10,
+  },
+  {
+    value: 11,
+  },
+  {
+    value: 12,
+  },
+  {
+    value: 13,
+  },
+  {
+    value: 14,
+  },
+  {
+    value: 15,
+  },
+  {
+    value: 16,
+  },
+  {
+    value: 17,
+  },
+  {
+    value: 18,
+  },
+  {
+    value: 19,
+  },
+  {
+    value: 20,
+  },
+];
 
 const StudyCompassFilters = (props) => {
-  const { studyprogram } = props;
-  const { timetables } = studyprogram;
+  const classes = useStyles();
 
-  const { subject_type } = studyprogram;
+  const [studyprogram, setStudyProgram] = useState(props.studyprogram);
+
+  const ITEM_HEIGHT = 60;
+  const ITEM_PADDING_TOP = 50;
+  const MenuProps = {
+    props: {
+      style: {
+        Height: 1000,
+        width: 250,
+      },
+    },
+  };
+  const {
+    id,
+    name: Title,
+    url: link,
+    isSelected,
+    sws: timeCom,
+    subject_type: CourseType,
+    language: Language,
+    description: Description,
+    keywords,
+    selected,
+    persons,
+
+    timetable,
+    study_programs,
+  } = studyprogram || {};
 
   const courses = [];
   const languages = [];
@@ -121,9 +209,7 @@ const StudyCompassFilters = (props) => {
   const Swss = [];
 
   for (let study of studyprogram) {
-    if (!courses.includes(study.subject_type)) {
-    }
-    courses.push(study.subject_type);
+    if (!courses.includes(study.subject_type)) courses.push(study.subject_type);
     if (!Swss.includes(study.sws)) Swss.push(study.sws);
     if (!languages.includes(study.language)) languages.push(study.language);
     for (let tita of study.timetable) {
@@ -133,68 +219,18 @@ const StudyCompassFilters = (props) => {
       }
     }
   }
-  const mm = Math.min.apply(Math, Swss); // 0
+
+  const mm = Math.min.apply(Math, Swss);
   const ll = Math.max.apply(Math, Swss); // 12
 
-  const marksTime = [
-    {
-      value: 8,
-    },
-    {
-      value: 9,
-    },
-    {
-      value: 10,
-    },
-    {
-      value: 11,
-    },
-    {
-      value: 12,
-    },
-    {
-      value: 13,
-    },
-    {
-      value: 14,
-    },
-    {
-      value: 15,
-    },
-    {
-      value: 16,
-    },
-    {
-      value: 17,
-    },
-    {
-      value: 18,
-    },
-    {
-      value: 19,
-    },
-    {
-      value: 20,
-    },
-  ];
-
-  // const [studyprogram, setstudyprogram ] = useState([])
-
-  // useEffect(() => {
-  //   Backend.get("/studycompass/get_studyprograms").then((response) => {
-  //     setstudyprogram(response.data);
-  //   });
-  // }, []);
-
-  const classes = useStyles();
-
-  const [coursetype, setcourse] = React.useState([]);
-  const [language, setlanguage] = React.useState([]);
-  const [dayz, setdyaz] = React.useState([]);
-  const [swz, setswz] = React.useState([0, 12]);
+  const [coursetype, setcourse] = React.useState(courses);
+  const [language, setlanguage] = React.useState(languages);
+  const [dayz, setdyaz] = React.useState(Days);
+  const [swz, setswz] = React.useState([mm, ll]);
   const [ttime, settime] = React.useState([]);
-
+  const [searchtext, setname] = React.useState();
   const [value, setValue] = React.useState([8, 20]);
+  const filters = [coursetype, language, dayz, swz, value, searchtext];
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -203,6 +239,11 @@ const StudyCompassFilters = (props) => {
   const handlecourseChange = (event) => {
     setcourse(event.target.value);
   };
+
+  const handlesearchChange = (event) => {
+    setname(event.target.value);
+  };
+
   const handletimeChange = (event, newValue) => {
     settime(newValue);
   };
@@ -227,66 +268,185 @@ const StudyCompassFilters = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <React.Fragment>
-        {/* Course Type */}
+        <Grid container direction="row" className={classes.box}>
+          <Grid xs={2}>
+            {/* Course Type */}
+            <FormControl style={{ width: "100px" }} variant={"filled"}>
+              <InputLabel id="demo-simple-select-label" margin="dense">
+                Course Type
+              </InputLabel>
+              <Select
+                style={{ backgroundColor: "white" }}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                multiple
+                value={coursetype}
+                label="Course Type"
+                onChange={handlecourseChange}
+                renderValue={(selected) => selected.join(", ")}
+                MenuProps={MenuProps}
+              >
+                {courses.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    <ListItemText primary={name} />
+                    <Checkbox checked={coursetype.indexOf(name) > -1} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          {"   "}
 
-        <Grid container direction="row" spacing={1}>
-          <Grid item>
-            <Paper elevation={1}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                className={classes.box}
-                options={studyprogram}
-                getOptionLabel={(option) => new Set(option.subject_type)}
-                onChange={(event, value) => {
-                  //setStudyProgramid(value.id);
-                }}
-                style={{ width: 150 }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Course Type"
-                    variant="outlined"
+          <Grid xs={2}>
+            {/* Language */}
+            <FormControl style={{ width: "100px" }} variant="filled">
+              <InputLabel id="demo-simple-select-label">Language</InputLabel>
+              <Select
+                style={{ backgroundColor: "white" }}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={language}
+                label="Language"
+                onChange={handlelangeChange}
+                renderValue={(selected) => selected.join(", ")}
+                MenuProps={MenuProps}
+              >
+                {languages.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    <ListItemText primary={name} />
+                    <Checkbox checked={language.indexOf(name) > -1} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid xs={2}>
+            {/* Day */}
+            <FormControl style={{ width: "100px" }} variant="filled">
+              <InputLabel id="demo-simple-select-label">Day</InputLabel>
+              <Select
+                style={{ backgroundColor: "white" }}
+                labelId="demo-simple-select-label"
+                multiple
+                id="demo-simple-select"
+                value={dayz}
+                label="Day"
+                onChange={handledayzChange}
+                renderValue={(selected) => selected.join(", ")}
+                MenuProps={MenuProps}
+              >
+                {Days.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    <ListItemText primary={name} />
+                    <Checkbox checked={dayz.indexOf(name) > -1} />
+                    {/* change the value ZB Di. -> tuersday */}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid xs={2}>
+            {/* Time */}
+            <FormControl style={{ width: "100px" }}>
+              <InputLabel id="demo-simple-select-label" variant="filled">
+                Time
+              </InputLabel>
+              <Select
+                style={{ backgroundColor: "white" }}
+                labelId="demo-simple-select-label"
+                multiple
+                id="demo-simple-select"
+                value={value}
+                label="Time"
+                valueLabelFormat={valuete}
+                onChange={handletimeChange}
+                renderValue={(value) => value.join(" - ")}
+                MenuProps={MenuProps}
+              >
+                <MenuItem style={{ height: "100px" }}>
+                  {/* <TextField disabled label="from"  value={value} > </TextField> */}
+
+                  <Typography>
+                    {value[0]}:00 - {value[1]}:00
+                  </Typography>
+
+                  {/* <TextField disabled label="to" defaultValue="20:00" > </TextField> */}
+                </MenuItem>
+                <MenuItem style={{ height: "100px" }}>
+                  <Slider
+                    style={{ backgroundColor: "white" }}
+                    variant="filled"
+                    getAriaValueText={valuete}
+                    value={value}
+                    onChange={handleChange}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="discrete-slider-custom"
+                    marks={marksTime}
+                    valueLabelFormat={valuete}
+                    min={8}
+                    max={20}
                   />
-                )}
-              />
-            </Paper>
+                </MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
-          <Grid item>
-            <Paper elevation={1} style={{ padding: 0 }}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                className={classes.box}
-                options={studyprogram}
-                getOptionLabel={(option) => option.language}
-                onChange={(event, value) => {
-                  //setStudyProgramid(value.id);
-                }}
-                style={{ width: 150 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Language" variant="outlined" />
-                )}
-              />
-            </Paper>
+
+          <Grid xs={2}>
+            {/* SWS */}
+            <FormControl style={{ width: "100px" }}>
+              <InputLabel id="demo-simple-select-label" variant="filled">
+                SWS
+              </InputLabel>
+              <Select
+                style={{ backgroundColor: "white" }}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                multiple
+                value={swz}
+                label="SWS"
+                renderValue={(swz) => swz.join(" - ")}
+                MenuProps={MenuProps}
+              >
+                <MenuItem style={{ height: "100px" }}>
+                  <Typography>
+                    {swz[0]}h - {swz[1]}h
+                  </Typography>
+                </MenuItem>
+                <MenuItem style={{ height: "100px" }}>
+                  <Slider
+                    getAriaValueText={valuetext}
+                    value={swz}
+                    onChange={handleswzChange}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={valuetext}
+                    aria-labelledby="discrete-slider-custom"
+                    min={mm}
+                    max={ll}
+                  />
+                </MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
-          <Grid item>
-            <Paper elevation={1} style={{ padding: 0 }}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                className={classes.box}
-                options={studyprogram}
-                getOptionLabel={(option) => option.timetables.day}
-                onChange={(event, value) => {
-                  //setStudyProgramid(value.id);
-                }}
-                style={{ width: 150 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Day" variant="outlined" />
-                )}
-              />
-            </Paper>
+
+          <Grid xs={2} className={classes.search}>
+            {/* search */}
+            <TextField
+              style={{ width: "200px", backgroundColor: "white" }}
+              id="input-with-icon-textfield"
+              aria-label="center"
+              value={searchtext}
+              onChange={handlesearchChange}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="center">
+                    <SearchIcon style={{ color: "#000" }}> </SearchIcon>
+                  </InputAdornment>
+                ),
+              }}
+              variant="outlined"
+              label="Search for courses"
+            />
           </Grid>
         </Grid>
       </React.Fragment>

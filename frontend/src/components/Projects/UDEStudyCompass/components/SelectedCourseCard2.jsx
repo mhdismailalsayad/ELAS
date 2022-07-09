@@ -53,8 +53,6 @@ const SelectedCourse2 = (props) => {
     study_programs,
   } = selectedCourse || {};
 
-  const [courseSelected, setCourseSelected] = useState(isSelected);
-
   let profs;
   persons.map((result) => {
     profs = result;
@@ -173,15 +171,24 @@ const SelectedCourse2 = (props) => {
   };
 
   ///////////////////
-  const [listOfRemovedCourse, setListOfRemovedCourses] = useState([]);
+  const [showMoreDetails, setShowMoreDetails] = useState(false);
+  const handleShowMoreDetails = () => {
+    setShowMoreDetails(!showMoreDetails);
+  };
+
   //handling remove course
   const handleRemoveCourse = () => {
     props.handleRemoveById(id);
   };
 
+  ///handling remove course from history
+  // const handRemoveFromHistoryById = () => {
+  //   props.handRemoveFromHistoryById(id);
+  // };
+
   const [isOpen, setToggle] = useState(false);
   return (
-    <Paper elevation={1} style={{ padding: "1px" }} sx={{ width: 1 }} xs={12}>
+    <Paper elevation={1} style={{ padding: "1px", width: "100%" }} xs={12}>
       <Grid
         container
         spacing={2}
@@ -190,12 +197,20 @@ const SelectedCourse2 = (props) => {
         justify="space-evenly"
       >
         <Grid item xs={1}>
-          <IconButton
-            onClick={() => {
-              handleRemoveCourse();
-            }}
-          >
-            <RemoveCircleIcon style={{ color: "orange" }} />{" "}
+          <IconButton>
+            {!props.historyClicked ? (
+              <RemoveCircleIcon
+                style={{ color: "orange" }}
+                onClick={() => {
+                  handleRemoveCourse();
+                }}
+              />
+            ) : (
+              <AddBoxIcon
+                style={{ color: "orange" }}
+                //onClick={handRemoveFromHistoryById()}
+              />
+            )}
           </IconButton>
         </Grid>
         <Grid item xs={1}>
@@ -224,7 +239,7 @@ const SelectedCourse2 = (props) => {
             {timeCom.length !== 0 ? timeCom + " hrs." : "-"}
           </Typography>
         </Grid> */}
-        <Grid item xs={3}>
+        <Grid item xs={2}>
           <Typography>{Title}</Typography>
         </Grid>
         {/* <Grid item xs={2} style={{ marginRight: "3px" }}>
@@ -235,7 +250,7 @@ const SelectedCourse2 = (props) => {
           </Typography>
         </Grid> */}
 
-        <Grid item xs={0}>
+        <Grid item xs={1}>
           <div class="expand-icon">
             <IconButton
               aria-label="expand row"
@@ -356,6 +371,51 @@ const SelectedCourse2 = (props) => {
                 </Grid>
               </Grid>
             </Grid>
+
+            <Grid container direction="row" style={{ padding: "5px" }}>
+              <Grid item xs={8}></Grid>
+              <Grid item xs={4}>
+                <IconButton onClick={handleShowMoreDetails}>
+                  <Typography style={{ color: "#F39617" }}>
+                    {showMoreDetails ? "LESS DETAILS" : "MORE DETAILS"}
+                  </Typography>
+                </IconButton>
+              </Grid>
+            </Grid>
+            {showMoreDetails ? (
+              <Grid container direction="row" style={{ padding: "3px" }}>
+                <Grid item xs={12} container direction="column" spacing={1}>
+                  <Grid item>
+                    <Typography variant="h6">Description</Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography>
+                      {Description !== "" ? Description : "No Description"}
+                    </Typography>
+                    <Typography></Typography>
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  container
+                  direction="column"
+                  spacing={1}
+                  style={{ paddingTop: "12px" }}
+                >
+                  <Grid item>
+                    <Typography variant="h6">Assigned Study Program</Typography>
+                  </Grid>
+                  <Grid item>
+                    {study_programs.map((studyprogram) => (
+                      <Typography>{studyprogram.name}</Typography>
+                    ))}
+                  </Grid>
+                </Grid>
+              </Grid>
+            ) : (
+              <>{null}</>
+            )}
 
             {/* <Grid
               item
